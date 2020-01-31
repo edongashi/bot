@@ -53,19 +53,21 @@ function clearRoles(userId) {
 }
 
 function getData(userId, key, value) {
+  key = toArray(key)
   db
     .users(userId)
     .first()
-    .get(['data', key])
+    .get(['data', ...key])
     .value()
 }
 
 function setData(userId, key, value) {
+  key = toArray(key)
   db
     .users(userId)
     .onEach(user => user
       .defaults({ data: {} })
-      .set(['data', key], value)
+      .set(['data', ...key], value)
     )
     .write()
 }

@@ -55,7 +55,7 @@ function evalInContext(js, context) {
   }.call(context, 'with(this) { ' + js + ' }');
 }
 
-function exec(ctx) {
+function handleExec(ctx) {
   const { message } = ctx
   const index = message.indexOf('```js')
   const end = message.lastIndexOf(delim)
@@ -75,7 +75,7 @@ const commands = [
   [/^!addroles?\s+(?:<@!\S+?>)(?:\s+<@!\S+?>)*((?:\s+[a-z]+)*)$/i, privileged(handleAddRoles)],
   [/^!rmroles?\s+(?:<@!\S+?>)(?:\s+<@!\S+?>)*((?:\s+[a-z]+)*)$/i, privileged(handleRemoveRoles)],
   [/^!clroles?\s+(?:<@!\S+?>)(?:\s+<@!\S+?>)*$/i, privileged(handleRemoveAllRoles)],
-  [/^!exec(?:\s+<@!\S+?>)*\s+```js/i, privileged(exec)]
+  [/^!exec(?:\s+<@!\S+?>)*\s+```js/i, privileged(handleExec)]
 ]
 
 client.on('message', msg => {
