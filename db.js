@@ -27,7 +27,7 @@ db._.mixin({
   }
 })
 
-db.user = function (userId) {
+db.users = function (userId) {
   const ids = toArray(userId)
   const users = db.get('users').value()
   let update = false

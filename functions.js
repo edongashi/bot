@@ -16,7 +16,7 @@ function getRoles(userId) {
 function hasRole(userId, roles) {
   roles = toArray(roles)
   return db
-    .user(userId)
+    .users(userId)
     .every(user =>
       user.roles && roles.every(r => user.roles.includes(r))
     )
@@ -26,7 +26,7 @@ function hasRole(userId, roles) {
 function addRoles(userId, roles) {
   roles = toArray(roles)
   db
-    .user(userId)
+    .users(userId)
     .onEach(user => user
       .defaults({ roles: [] })
       .update('roles', r => union(r, roles))
@@ -37,7 +37,7 @@ function addRoles(userId, roles) {
 function removeRoles(userId, roles) {
   roles = toArray(roles)
   db
-    .user(userId)
+    .users(userId)
     .onEach(user => user
       .defaults({ roles: [] })
       .update('roles', r => difference(r, roles))
@@ -47,14 +47,14 @@ function removeRoles(userId, roles) {
 
 function clearRoles(userId) {
   db
-    .user(userId)
+    .users(userId)
     .onEach(user => user.set('roles', []))
     .write()
 }
 
 function getData(userId, key, value) {
   db
-    .user(userId)
+    .users(userId)
     .first()
     .get(['data', key])
     .value()
@@ -62,7 +62,7 @@ function getData(userId, key, value) {
 
 function setData(userId, key, value) {
   db
-    .user(userId)
+    .users(userId)
     .onEach(user => user
       .defaults({ data: {} })
       .set(['data', key], value)
