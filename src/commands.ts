@@ -19,13 +19,20 @@ function findInDir(dir, filter, fileList = []) {
   return fileList
 }
 
+function toArray<T>(arg: T | T[]): T[] {
+  return Array.isArray(arg) ? arg : [arg]
+}
+
 const commandsDir = path.resolve(__dirname, 'commands')
 const files = findInDir(commandsDir, /\.[tj]s$/i)
 const commands = files
   .map(f => {
     const module = require(f)
-    return (module.default || module.command || module) as Command
+    return (module.default || module.command || module.commands || module) as
+      | Command
+      | Command[]
   })
+  .flatMap(toArray)
   .filter(c => typeof c.name === 'string' && c.name)
 
 export default commands as Command[]

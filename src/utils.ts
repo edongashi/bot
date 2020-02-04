@@ -18,3 +18,7 @@ export async function awaitReaction(
     .awaitReactions(filter, { max: 1, time: time * 1000 })
     .then(collected => collected.first() && collected.first().emoji.name)
 }
+
+export function pickOne<T>(array: T[]): T {
+  return array[Math.floor(array.length * Math.random())]
+}
