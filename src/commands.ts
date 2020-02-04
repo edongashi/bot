@@ -1,6 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 import { Command } from './types'
+import { toArray } from './utils'
 
 function findInDir(dir, filter, fileList = []) {
   const files = fs.readdirSync(dir)
@@ -17,10 +18,6 @@ function findInDir(dir, filter, fileList = []) {
   })
 
   return fileList
-}
-
-function toArray<T>(arg: T | T[]): T[] {
-  return Array.isArray(arg) ? arg : [arg]
 }
 
 const commandsDir = path.resolve(__dirname, 'commands')
