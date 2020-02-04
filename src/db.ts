@@ -12,7 +12,7 @@ adapter.write = write
 const db = low(adapter)
 
 db.defaults({
-  shared: {},
+  root: {},
   commands: {}
 }).write()
 
