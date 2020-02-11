@@ -48,12 +48,14 @@ client.on('message', async message => {
   const [id, ...args] = stringArgv(message.content.substr(prefix.length))
   const command = commandsAssoc[id.toLowerCase()]
   if (command) {
+    const stateKey = command.stateKey || command.name
     const context: MessageContext = {
       message: message,
       args: minimist(args, command.options),
+      rawArgs: args,
       state: {
-        user: db.userCommandState(command.name, message.author.id),
-        command: db.commandState(command.name),
+        user: db.userCommandState(stateKey, message.author.id),
+        command: db.commandState(stateKey),
         root: db.rootState,
         userRoot: db.userRootState(message.author.id)
       }

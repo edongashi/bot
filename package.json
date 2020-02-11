@@ -22,7 +22,7 @@
     "typescript": "~3.7.4"
   },
   "scripts": {
-    "start-dev": "ts-node src/main",
+    "start": "ts-node src/main",
     "clean": "rimraf coverage build tmp",
     "build": "tsc -p tsconfig.release.json",
     "build:watch": "tsc -w -p tsconfig.release.json",

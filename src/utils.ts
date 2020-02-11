@@ -2,6 +2,10 @@ import { Message, User } from 'discord.js'
 import emoji from 'node-emoji'
 
 export function toArray<T>(arg: T | T[]): T[] {
+  if (typeof arg === 'undefined') {
+    return []
+  }
+
   return Array.isArray(arg) ? arg : [arg]
 }
 
