@@ -25,9 +25,7 @@ const files = findInDir(commandsDir, /\.[tj]s$/i)
 const commands = files
   .map(f => {
     const module = require(f)
-    return (module.default || module.command || module.commands || module) as
-      | Command
-      | Command[]
+    return (module.command || module.commands) as Command | Command[]
   })
   .flatMap(toArray)
   .filter(c => typeof c.name === 'string' && c.name)

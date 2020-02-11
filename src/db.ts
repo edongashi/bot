@@ -59,12 +59,12 @@ export class State<T = any> implements IState<T> {
   }
 }
 
-export function commandState<T = any>(commandId: string) {
-  return new State<T>(['commands', commandId, 'state'])
+export function commandState<T = any>(stateKey: string) {
+  return new State<T>(['commands', stateKey, 'state'])
 }
 
-export function userCommandState<T = any>(commandId: string, userId: string) {
-  return new State<T>(['commands', commandId, 'users', userId])
+export function userCommandState<T = any>(stateKey: string, userId: string) {
+  return new State<T>(['commands', stateKey, 'users', userId])
 }
 
 export const rootState = new State(['root', 'state'])
