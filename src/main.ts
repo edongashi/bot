@@ -30,6 +30,14 @@ const commandsAssoc = commands.reduce((acc, command) => {
   }
 }, {}) as Dictionary<Command>
 
+async function run(command: Command, context: MessageContext) {
+  try {
+    await command.run(context)
+  } catch (e) {
+    context.message.channel.send(`Error: ${e.message}`)
+  }
+}
+
 const client = new Discord.Client()
 
 client.on('message', async message => {
@@ -61,7 +69,7 @@ client.on('message', async message => {
       }
     }
 
-    command.run(context)
+    run(command, context)
   }
 })
 
